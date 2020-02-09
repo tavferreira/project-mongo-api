@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
+import goldenGlobesData from './data/golden-globes.json'
 
 // If you're using one of our datasets, uncomment the appropriate import below
 // to get started!
@@ -12,9 +13,26 @@ import mongoose from 'mongoose'
 // import netflixData from './data/netflix-titles.json'
 // import topMusicData from './data/top-music.json'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/golden-globes"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
+
+const Nominee = mongoose.model('Nominee', {
+  nominee: String
+})
+
+if (process.env.RESET_DATABASE) {
+  const seedDatabase = async () => {
+    await Nominee.deleteMany()
+
+    const meryl = new Nominee({ nominee: "Meryl Streep" })
+    await meryl.save()
+
+    const matt = new Nominee({ nominee: "Matt Damon" })
+    await matt.save()
+  }
+  seedDatabase()
+}
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -30,6 +48,11 @@ app.use(bodyParser.json())
 // Start defining your routes here
 app.get('/', (req, res) => {
   res.send('Hello world')
+})
+
+app.get('/nominees', async (req, res) => {
+  const nominees = await Nominee.find()
+  res.json(nominees)
 })
 
 // Start the server
