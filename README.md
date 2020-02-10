@@ -1,13 +1,18 @@
-# Mongo API Project
+## 1. What is this?
 
-Replace this readme with your own information about your project. 
+The purpose of this project was to build an API for a set of data using Node.js - Express framework and storing it in a Mongo DB database. The data is also retrieved using Mongoose methods instead of manipulating the data in the server.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
+## 2. What did I do?
 
-## The problem
+The API I've built is for a static set of Golden Globes data.
+I've decided to build different routes. You can query all nominees and nominations, as well as a specific nominee and its nominations.
+There is no pagination for this project, but it is on the to-do list.
 
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+- Example url for nominees: /nominees
+- Example url for nominations: /nominations
+- Example url for specific nominee: /nominees/{id}
+- Example url for specific nominee's nominations: /nominees/{id}/nominations
 
-## View it live
+## 3. Where can you see it in action?
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+You can access the project [here](https://tavferreira-mongo-api.herokuapp.com/).
